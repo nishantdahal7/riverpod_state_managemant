@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final numberProvider = Provider<int>((ref) => 100);
+final numberProvider = StateProvider<int>((ref) => 100);
 
 final nameProvider = Provider<String>((ref) => "Hello World!!");
 
@@ -9,6 +9,8 @@ final nameProvider = Provider<String>((ref) => "Hello World!!");
 //ref.read(numberProvider)
 //ref.read(nameProvider)
 
+//pachi kei change garnu cha vane StateProvider use garne.
+//J cha tei dekhaune vaye Provider use garne.
 //ProviderRef = Provider -> provider
 //WidgetRef = Widget -> provider
 class CounterView extends ConsumerWidget {
@@ -25,7 +27,7 @@ class CounterView extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              ref.read(numberProvider).toString(),
+              ref.watch(numberProvider).toString(),
               style: const TextStyle(
                 fontSize: 24,
               ),
@@ -38,7 +40,10 @@ class CounterView extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          //Change
+          ref.read(numberProvider.notifier).state += 2
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
